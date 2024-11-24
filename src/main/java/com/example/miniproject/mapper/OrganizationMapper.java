@@ -2,6 +2,7 @@ package com.example.miniproject.mapper;
 
 import com.example.miniproject.Model.Organization;
 import com.example.miniproject.dto.OrganizationDTO;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

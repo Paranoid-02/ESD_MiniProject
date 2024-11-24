@@ -1,18 +1,23 @@
 package com.example.miniproject.Model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "organizations")
 public class Organization {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private String address;
 
@@ -20,9 +25,20 @@ public class Organization {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrganizationHR> hrContacts;
+    private List<OrganizationHR> hrContacts = new ArrayList<>();
 
-    public Organization() {
-        this.createdAt = LocalDateTime.now();
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
+
+    public void addHRContact(OrganizationHR hr) {
+        hrContacts.add(hr);
+        hr.setOrganization(this);
+    }
+
+    public void removeHRContact(OrganizationHR hr) {
+        hrContacts.remove(hr);
+        hr.setOrganization(null);
     }
 }
