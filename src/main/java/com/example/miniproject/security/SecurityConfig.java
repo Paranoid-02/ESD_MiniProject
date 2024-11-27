@@ -57,7 +57,7 @@ public class SecurityConfig implements WebMvcConfigurer {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("login","signup")
+                        .requestMatchers("/api/login","/api/signup")
                         .permitAll()
                         .anyRequest()
                         .authenticated())
