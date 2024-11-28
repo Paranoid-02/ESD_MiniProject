@@ -19,6 +19,7 @@ public class OrganizationController {
 
     @GetMapping
     public ResponseEntity<List<OrganizationDTO>> getAllOrganizations() {
+        System.out.println("Get All Organizations called");
         List<OrganizationDTO> organizations = organizationService.getAllOrganizations();
         return ResponseEntity.ok(organizations);
     }
